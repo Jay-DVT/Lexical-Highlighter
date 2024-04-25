@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <style>
+        span.reserved {
+            color: red;
+        }
+
+        span.logical {
+            color: purple;
+        }
+
+        span.literals {
+            color: blue;
+        }
+
+        span.comments {
+            color: gray;
+        }
+
+        span.strings {
+            color: yellow;
+        }
+
+        span.functions {
+            font-style: italic;
+        }
+
+        span.variables {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    #<span class="variables">include</span>
+    <<span class="variables">stdio</span>.<span class="variables">h</span>>
+
+        <span class="comments">// Function to calculate the factorial of a number</span>
+        <span class="reserved">int</span>
+        <span class="variables">factorial</span>(<span class="reserved">int</span>
+        <span class="variables">n</span>) { <span class="reserved">if</span> (<span class="variables">n</span>
+        == <span class="literals">0</span> <span class="logical">||</span>
+        <span class="variables">n</span> == <span class="literals">1</span>)
+        <span class="reserved">return</span> <span class="literals">1</span>;
+        <span class="reserved">else</span>
+        <span class="reserved">return</span> <span class="variables">n</span> *
+        <span class="variables">factorial</span>(<span class="variables">n</span> -
+        <span class="literals">1</span>); }
+
+        <span class="reserved">int</span> <span class="variables">main</span>() {
+        <span class="reserved">int</span> <span class="variables">num</span> =
+        <span class="literals">5</span>; <span class="reserved">int</span>
+        <span class="variables">result</span>;
+
+        <span class="comments">// Calculate the factorial of num</span>
+        <span class="variables">result</span> =
+        <span class="variables">factorial</span>(<span class="variables">num</span>);
+
+        <span class="comments">// Print the result</span>
+        <span class="variables">printf</span>(<span class="strings">"The factorial of %d is %d\n"</span>, <span
+            class="variables">num</span>,
+        <span class="variables">result</span>);
+
+        <span class="reserved">return</span> <span class="literals">0</span>; }
+</body>
+
+</html>
