@@ -9,8 +9,8 @@ class Scanner:
         self.start = 0
         self.current = 0
         self.tokens = []
-        self.variable = []
-        self.function = []
+        self.variables = []
+        self.functions = []
 
 
 class TokenType(Enum):
@@ -26,6 +26,7 @@ class TokenType(Enum):
     TOKEN_RIGHT_PAREN = 9
     TOKEN_STRING = 10
     TOKEN_TYPE = 11
+    TOKEN_VARIABLE = 12
 
 
 class Token:
@@ -43,6 +44,16 @@ def peek():
     if scanner.current >= len(scanner.source):
         return '\0'
     return scanner.source[scanner.current]
+
+
+def peek_skip_whitespace():
+    current = scanner.current
+    while current < len(scanner.source):
+        if scanner.source[current] == ' ' or scanner.source[current] == '\t':
+            current += 1
+        else:
+            break
+    return scanner.source[current]
 
 
 def is_digit(c):
@@ -75,13 +86,37 @@ def advance():
     return scanner.source[scanner.current - 1]
 
 
+def variable():
+    word = scanner.source[scanner.start:scanner.current]
+    if word in scanner.variables:
+        return TokenType.TOKEN_LITERAL
+    elif word in scanner.functions:
+        return TokenType.TOKEN_FUNCTION
+
+    operator = peek_skip_whitespace()
+    if not operator:
+        return TokenType.TOKEN_IDENTIFIER
+
+    match operator:
+        case '(':
+            scanner.functions.append(word)
+            return TokenType.TOKEN_LITERAL
+        case '=':
+            scanner.variables.append(word)
+            return TokenType.TOKEN_VARIABLE
+        case _:
+            pass
+
+    return TokenType.TOKEN_IDENTIFIER
+
+
 def check_keyword(start, length, rest):
     start += scanner.start
     word = scanner.source[start:start + length]
     if word == rest:
         return TokenType.TOKEN_KEYWORD
     else:
-        return TokenType.TOKEN_IDENTIFIER
+        return variable()
 
 
 def make_token(token_type):
@@ -194,7 +229,7 @@ def identifier_type():
                             return check_keyword(3, 5, "atile")
         case 'w':
             return check_keyword(1, 4, "hile")
-    return TokenType.TOKEN_IDENTIFIER
+    return variable()
 
 
 def identifier():
@@ -249,8 +284,16 @@ def match_comment():
     return make_token(TokenType.TOKEN_COMMENT)
 
 
+def match_paren():
+    match peek():
+        case '{':
+            return make_token(TokenType.TOKEN_LEFT_PAREN)
+        case '}':
+            return make_token(TokenType.TOKEN_RIGHT_PAREN)
+
+
 def regex():
-    return match_comment() or match_operator() or match_string()
+    return match_comment() or match_operator() or match_string() or match_paren()
 
 
 def scan_token() -> TokenType:

@@ -7,16 +7,15 @@ def create_html(tokens, source):
     html += "span.logical { color: purple; }"
     html += "span.literals { color: blue; }"
     html += "span.comments { color: gray; }"
-    html += "span.strings { color: yellow; }"
+    html += "span.strings { color: green; }"
     html += "span.functions { font-style: italic; }"
-    html += "span.variables { font-weight: bold; }"
     html += "</style></head><body>"
 
     current_position = 0
     for token in tokens:
         html += source[current_position:token.start]
         if token.token_type == TokenType.TOKEN_COMMENT:
-            html += f"<span class='comments'>{source[token.start:token.end]}</span>"
+            html += f"<br /><span class='comments'>{source[token.start:token.end]}</span><br />"
         elif token.token_type == TokenType.TOKEN_LITERAL:
             html += f"<span class='literals'>{source[token.start:token.end]}</span>"
         elif token.token_type == TokenType.TOKEN_STRING:
@@ -32,6 +31,10 @@ def create_html(tokens, source):
                 html += f"{source[token.start:token.end]}"
         elif token.token_type == TokenType.TOKEN_KEYWORD:
             html += f"<span class='reserved'>{source[token.start:token.end]}</span>"
+        elif token.token_type == TokenType.TOKEN_LEFT_PAREN:
+            html += f"{source[token.start:token.end]} <br />"
+        elif token.token_type == TokenType.TOKEN_RIGHT_PAREN:
+            html += f"<br />{source[token.start:token.end]}"
         else:
             html += f"{source[token.start:token.end]}"
         current_position = token.end

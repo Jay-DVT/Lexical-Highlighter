@@ -1,68 +1,23 @@
-<html>
+<html><head><style>span.reserved { color: red; }span.logical { color: purple; }span.literals { color: blue; }span.comments { color: gray; }span.strings { color: green; }span.functions { font-style: italic; }</style></head><body>#<span class='variables'>include</span> <<span class='variables'>stdio</span>.<span class='variables'>h</span>>
 
-<head>
-    <style>
-        span.reserved {
-            color: red;
-        }
+<br /><span class='comments'>// Function to calculate the factorial of a number</span><br />
+<span class='reserved'>int</span> <span class='literals'>factorial</span>(<span class='reserved'>int</span> <span class='variables'>n</span>) {
+    <span class='reserved'>if</span> (n == <span class='literals'>0</span> <span class='logical'>||</span> <span class='literals'>n</span> == <span class='literals'>1</span>)
+        <span class='reserved'>return</span> <span class='literals'>1</span>;
+    <span class='reserved'>else</span>
+        <span class='reserved'>return</span> <span class='literals'>n</span> * <span class='functions'>factorial</span>(<span class='literals'>n</span> - <span class='literals'>1</span>);
+}
 
-        span.logical {
-            color: purple;
-        }
+<span class='reserved'>int</span> <span class='literals'>main</span>() {
+    <span class='reserved'>int</span> num = <span class='literals'>5</span>;
+    <span class='reserved'>int</span> <span class='variables'>result</span>;
 
-        span.literals {
-            color: blue;
-        }
+    <br /><span class='comments'>// Calculate the factorial of num</span><br />
+    result = <span class='functions'>factorial</span>(<span class='literals'>num</span>);
 
-        span.comments {
-            color: gray;
-        }
+    <br /><span class='comments'>// Print the result</span><br />
+    <span class='literals'>printf</span>(<span class='strings'>"The factorial of %d is %d\n"</span>, <span class='literals'>num</span>, <span class='literals'>result</span>);
 
-        span.strings {
-            color: yellow;
-        }
-
-        span.functions {
-            font-style: italic;
-        }
-
-        span.variables {
-            font-weight: bold;
-        }
-    </style>
-</head>
-
-<body>
-    #<span class="variables">include</span>
-    <<span class="variables">stdio</span>.<span class="variables">h</span>>
-
-        <span class="comments">// Function to calculate the factorial of a number</span>
-        <span class="reserved">int</span>
-        <span class="variables">factorial</span>(<span class="reserved">int</span>
-        <span class="variables">n</span>) { <span class="reserved">if</span> (<span class="variables">n</span>
-        == <span class="literals">0</span> <span class="logical">||</span>
-        <span class="variables">n</span> == <span class="literals">1</span>)
-        <span class="reserved">return</span> <span class="literals">1</span>;
-        <span class="reserved">else</span>
-        <span class="reserved">return</span> <span class="variables">n</span> *
-        <span class="variables">factorial</span>(<span class="variables">n</span> -
-        <span class="literals">1</span>); }
-
-        <span class="reserved">int</span> <span class="variables">main</span>() {
-        <span class="reserved">int</span> <span class="variables">num</span> =
-        <span class="literals">5</span>; <span class="reserved">int</span>
-        <span class="variables">result</span>;
-
-        <span class="comments">// Calculate the factorial of num</span>
-        <span class="variables">result</span> =
-        <span class="variables">factorial</span>(<span class="variables">num</span>);
-
-        <span class="comments">// Print the result</span>
-        <span class="variables">printf</span>(<span class="strings">"The factorial of %d is %d\n"</span>, <span
-            class="variables">num</span>,
-        <span class="variables">result</span>);
-
-        <span class="reserved">return</span> <span class="literals">0</span>; }
-</body>
-
-</html>
+    <span class='reserved'>return</span> <span class='literals'>0</span>;
+}
+</body></html>
